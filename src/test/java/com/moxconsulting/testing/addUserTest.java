@@ -5,6 +5,11 @@ import java.util.concurrent.TimeUnit;
 import java.net.*;
 import java.io.File;
 
+import com.stormpath.sdk.client.Client;
+import com.stormpath.sdk.client.Clients;
+import com.stormpath.sdk.account.*;
+import com.stormpath.sdk.application.*;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.*;
@@ -31,6 +36,35 @@ private StringBuffer verificationErrors = new StringBuffer();
 
 @BeforeSuite
 public void setUp() throws Exception {
+
+        Client client = Clients.builder().build();
+        System.out.println("\n*******************************\n");
+        System.out.println(client);
+        System.out.println("\n*******************************\n");
+
+        Application application = client
+          .getApplications(Applications.where(Applications.name().eqIgnoreCase("My Application")))
+          .single();
+
+        //Create the account object
+        Account account = client.instantiate(Account.class);
+
+        //Set the account properties
+        account.setGivenName("Joe");
+        account.setSurname("Stormtrooper");
+        account.setUsername("tk421"); //optional, defaults to email if unset
+        account.setEmail("tk421@stormpath.com");
+        account.setPassword("Changeme1");
+
+        //Create the account using the existing Application object
+        account = application.createAccount(account);
+
+        System.out.println("Hello " + account.getFullName());
+
+
+
+
+
         // For GRID
         String hubNodeGridUrl = "http://localhost:4444/wd/hub";
         DesiredCapabilities capability = new DesiredCapabilities();
