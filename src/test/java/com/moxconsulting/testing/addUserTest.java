@@ -4,6 +4,14 @@ import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import java.net.*;
 import java.io.File;
+import java.util.NoSuchElementException;
+import java.util.Iterator;
+
+
+import com.stormpath.sdk.client.Client;
+import com.stormpath.sdk.client.Clients;
+import com.stormpath.sdk.account.*;
+import com.stormpath.sdk.application.*;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,6 +31,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+
+
+
 public class addUserTest {
 private WebDriver driver;
 private String baseUrl;
@@ -31,6 +42,9 @@ private StringBuffer verificationErrors = new StringBuffer();
 
 @BeforeSuite
 public void setUp() throws Exception {
+
+
+
         // For GRID
         String hubNodeGridUrl = "http://localhost:4444/wd/hub";
         DesiredCapabilities capability = new DesiredCapabilities();
@@ -99,6 +113,22 @@ public void tearDown() throws Exception {
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
                 Assert.fail(verificationErrorString);
+        }
+
+        Client client = Clients.builder().build();
+        // Clean
+        Application application = client
+                                  .getApplications(Applications.where(Applications.name().eqIgnoreCase("My Application")))
+                                  .single();
+
+        AccountList accounts = application.getAccounts();
+
+        // Long way
+        Iterator<Account> it = accounts.iterator();
+        while(it.hasNext()) {
+                Account cur = it.next();
+                System.out.println("bye bye " + cur.getFullName());
+                cur.delete();
         }
 }
 }

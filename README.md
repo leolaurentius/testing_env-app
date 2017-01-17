@@ -13,6 +13,9 @@ $ npm install (only first time)
 $ npm start
 ```
 #### 3. Launch Test
+##### 3.1. file configuration
+~/.stormpath/apiKey.properties well configurated is needed
+
 ```bash
 mvn test
 ```
