@@ -32,18 +32,14 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
-
-
 public class addUserTest {
 private WebDriver driver;
 private String baseUrl;
 private boolean acceptNextAlert = true;
 private StringBuffer verificationErrors = new StringBuffer();
 
-@BeforeSuite
+@BeforeClass
 public void setUp() throws Exception {
-
-
 
         // For GRID
         String hubNodeGridUrl = "http://localhost:4444/wd/hub";
@@ -107,28 +103,29 @@ public void createUserAgain() throws Exception {
 }
 
 
-@AfterSuite
+@AfterClass
 public void tearDown() throws Exception {
+        System.out.println("driver quit");
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
                 Assert.fail(verificationErrorString);
         }
+}
 
-        Client client = Clients.builder().build();
-        // Clean
-        Application application = client
-                                  .getApplications(Applications.where(Applications.name().eqIgnoreCase("My Application")))
-                                  .single();
-
-        AccountList accounts = application.getAccounts();
-
-        // Long way
-        Iterator<Account> it = accounts.iterator();
-        while(it.hasNext()) {
-                Account cur = it.next();
-                System.out.println("bye bye " + cur.getFullName());
-                cur.delete();
-        }
+@AfterSuite
+public void removeUsers() throws Exception {
+    // Clean
+    Iterator<Account> it = Clients.builder()
+                                .build()
+                                .getApplications(Applications.where(Applications.name().eqIgnoreCase("My Application")))
+                                .single()
+                                .getAccounts()
+                                .iterator();
+    while(it.hasNext()) {
+            Account cur = it.next();
+            System.out.println("bye bye " + cur.getFullName());
+            cur.delete();
+    }
 }
 }
