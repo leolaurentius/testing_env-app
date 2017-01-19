@@ -32,7 +32,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
-public class addUserTest {
+public class addUserTestFirefox {
 private WebDriver driver;
 private String baseUrl;
 private boolean acceptNextAlert = true;
@@ -102,10 +102,9 @@ public void createUserAgain() throws Exception {
         }
 }
 
-
 @AfterClass
 public void tearDown() throws Exception {
-        System.out.println("driver quit");
+        System.out.println("driver firefox quit");
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
