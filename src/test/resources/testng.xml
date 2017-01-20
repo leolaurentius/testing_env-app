@@ -8,7 +8,8 @@
         <classes>
             <class name="com.moxconsulting.testing.addUserTestFirefox"/>
             <class name="com.moxconsulting.testing.addUserTestChrome"/>
-            <class name="com.moxconsulting.testing.tearDownSuite"/>
+            <!-- class to handle setUp and tearDown stormpath env -->
+            <class name="com.moxconsulting.testing.stormpathSetSuite"/>
         </classes>
     </test>
 </suite>

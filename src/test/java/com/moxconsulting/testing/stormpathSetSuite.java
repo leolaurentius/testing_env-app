@@ -18,17 +18,22 @@ import com.stormpath.sdk.client.Clients;
 import com.stormpath.sdk.account.*;
 import com.stormpath.sdk.application.*;
 
-
-public class tearDownSuite {
+public class stormpathSetSuite {
 
 private String applicationName;
 
 @Parameters({"application-name"})
-public tearDownSuite(String applicationName) {
+public stormpathSetSuite(String applicationName) {
         this.applicationName = applicationName;
 }
+
+@BeforeSuite
+public void setUp() throws Exception {
+        // do nothing
+}
+
 @AfterSuite
-public void removeUsers() throws Exception {
+public void removeAllUsers() throws Exception {
         // Clean
         Iterator<Account> it = Clients.builder()
                                .build()
