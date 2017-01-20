@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
-
 import com.stormpath.sdk.client.Client;
 import com.stormpath.sdk.client.Clients;
 import com.stormpath.sdk.account.*;
@@ -18,8 +17,8 @@ import org.testng.annotations.Test;
 import org.testng.annotations.*;
 
 import static org.hamcrest.CoreMatchers.*;
-import org.openqa.selenium.*;
 
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
@@ -27,18 +26,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-
 public class addUserTestChrome {
 private WebDriver driver;
 private String baseUrl;
 private boolean acceptNextAlert = true;
 private StringBuffer verificationErrors = new StringBuffer();
 
+@Parameters({"hub-node-grid-url", "base-url"})
 @BeforeClass
-public void setUp() throws Exception {
+public void setUp(String hubNodeGridUrl, String baseUrl) throws Exception {
 
-        // For GRID
-        String hubNodeGridUrl = "http://localhost:4444/wd/hub";
         DesiredCapabilities capability = new DesiredCapabilities();
         try {
                 driver = new RemoteWebDriver(new URL(hubNodeGridUrl), DesiredCapabilities.chrome());
@@ -47,10 +44,7 @@ public void setUp() throws Exception {
                 System.out.println(e);
         }
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        // For local firefox
-        // baseUrl = "http://localhost:3000";
-        // For GRID
-        baseUrl = "http://172.17.0.1:3000";
+        this.baseUrl = baseUrl;
 }
 
 @Test(description="Create new user.")
@@ -95,7 +89,6 @@ public void createUserAgain() throws Exception {
         }
 }
 
-
 @AfterClass
 public void tearDown() throws Exception {
         System.out.println("driver chrome quit");
@@ -105,5 +98,4 @@ public void tearDown() throws Exception {
                 Assert.fail(verificationErrorString);
         }
 }
-
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Testing Stormpath" verbose="1" parallel="classes" thread-count="2">
+    <parameter name="hub-node-grid-url"  value="http://localhost:4444/wd/hub"/>
+    <parameter name="base-url"  value="http://172.17.0.1:3000"/>
     <test name="Test suite 1">
         <classes>
             <class name="com.moxconsulting.testing.addUserTestFirefox"/>
