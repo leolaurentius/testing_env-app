@@ -3,10 +3,12 @@
 <suite name="Testing Stormpath" verbose="1" parallel="classes" thread-count="2">
     <parameter name="hub-node-grid-url"  value="http://localhost:4444/wd/hub"/>
     <parameter name="base-url"  value="http://172.17.0.1:3000"/>
+    <parameter name="application-name"  value="My Application"/>
     <test name="Test suite 1">
         <classes>
             <class name="com.moxconsulting.testing.addUserTestFirefox"/>
             <class name="com.moxconsulting.testing.addUserTestChrome"/>
+            <class name="com.moxconsulting.testing.tearDownSuite"/>
         </classes>
     </test>
 </suite>

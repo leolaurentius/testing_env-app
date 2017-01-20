@@ -7,11 +7,6 @@ import java.io.File;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
-import com.stormpath.sdk.client.Client;
-import com.stormpath.sdk.client.Clients;
-import com.stormpath.sdk.account.*;
-import com.stormpath.sdk.application.*;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.*;
